@@ -24,6 +24,7 @@ extern void DebugMon_Handler( void );
 extern void PendSV_Handler( void );
 extern void SysTick_Handler( void );
 extern void Port_A_Handler( void );
+extern void ADC0_Handler( void );
 extern void Timer_0A_Handler( void );
 extern void Timer_1A_Handler( void );
 extern void Timer_2A_Handler( void );
@@ -79,7 +80,7 @@ const intvec_elem __vector_table[] =
   0,
   0,
   0,
-  0,
+  ADC0_Handler,
   0,
   Timer_0A_Handler,
   0,
@@ -115,6 +116,8 @@ __weak void PendSV_Handler( void ) { while (1) {} }
 __weak void SysTick_Handler( void ) { while (1) {} }
 #pragma call_graph_root = "interrupt"
 __weak void Port_A_Handler( void ) { while (1) {} }
+#pragma call_graph_root = "interrupt"
+__weak void ADC0_Handler( void ) { while (1) {} }
 #pragma call_graph_root = "interrupt"
 __weak void Timer_0A_Handler( void ) { while (1) {} }
 #pragma call_graph_root = "interrupt"

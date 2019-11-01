@@ -19,12 +19,17 @@ void Timer_0A_Handler(void) {
 void Port_F_Handler(void) {
   // Checks if Port F4 is pressed, if it is turn on RED led
   if (((GPIODATA_PORT_F_APB >> 4) & 0x1)  == 0) {
-    GPTMCTL_0 |= 0x1;           // Enable Timer 1
+    //GPTMCTL_0 |= 0x1;           // Enable Timer 1
+    Timer0_Init(80, 1, 1);
+    PLL_Init();
+    
   }
   // Checks if Port F0 is pressed, if it is turn on GREEN led
   if ((GPIODATA_PORT_F_APB & 0x1) == 0) {
-    GPTMCTL_0 &= ~0x1;          // Disable Timer 1
-    GPIODATA_PORT_F_APB = RED;
+    //GPTMCTL_0 &= ~0x1;          // Disable Timer 1
+    //GPIODATA_PORT_F_APB = RED;
+    Timer0_Init(4, 1, 1);
+    PLL_Init_2();
   }
   GPIOICR_PORT_F_APB |= 0x11;
 }
