@@ -2,24 +2,14 @@
 #include "led_switch.h"
 
 int main()
-{
-  //blink_blue_interrupt();   The en0 bit for the interrupt was changed to use adc handler instead of timer handler
+{ 
+  PortF_Init();                    // Enable switches and LED
+  board_switch_interrupt_init();   // Enable interrupts for switches
+  Timer0_Init(4, 1, 1);            // Configure and enable a 1 second timer based on 4 Mhz clock 
+  PLL_Init_2();                    // Initialize 4 Mhz clock
+  ADC_Init();                      // Initialize ADC
+  UART_Init();                     // Initialize UART
   
-  
-  PortF_Init();
-  board_switch_interrupt_init();
-  Timer0_Init(4, 1, 1);  
-  PLL_Init_2();
-  ADC_Init();
-  
-  int i = 0;
-  while (1) {
-    if (GPTMRIS_0 & 0x1) {
-      GPIODATA_PORT_F_APB = i;
-      GPTMICR_0 |= 0x1;        // Reset Timer
-      i = (i + 2) % 16;
-    }
-  
-  }
+  while (1) {}
   return 0;
 }
