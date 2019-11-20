@@ -60,11 +60,11 @@ void UART_Init() {
   UART_CTL &= ~0x1;                  // diable module before configuration
 
   // set the baud rate (integer & fraction parts)
-  UART_IBRD |= 0xA;
-  UART_FBRD |= 0x36;
+  UART_IBRD = 0x8;
+  UART_FBRD = 0x2C;
 
-  UART_LCRH = 0x70;                  // set the transmission line control
-  UART_CC = 0x0;                    // use system clock
+  UART_LCRH |= 0x60;                  // set the transmission line control
+  UART_CC &= ~0x1;                    // use system clock
   
   UART_CTL |= 0x301;                 // enable UART Module
 }
